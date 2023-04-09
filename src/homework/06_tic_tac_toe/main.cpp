@@ -14,14 +14,30 @@ using std::endl;
 using std::string;
 
 int main() {
-  TicTacToe game;           //Object from the TicTacToe Class
+  TicTacToe tictactoegame;  //Object from the TicTacToe Class
+  TicTacToeManager manager; //object from the TicTacToeManager Class
+  string menuOption;        //user input for what to do on the menu
   string exitOption;        //var used to ask user if they would like to play again
   string first_player;      //var used to store if the first player would like to be a X or a O
   bool valid_input = false; //bool used to validate if the user put an X or O for first_player var
-  int position;             //user input for board position | used on line 41
+  int position;             //user input for board position
+  int w = 0;                //used to display the number of times x won
+  int o = 0;                //used to display the number of times o won
+  int t = 0;                //used to display the number of ties
 
-//do is for the code starting at line 60
-do {
+  //do while loop for menu
+  do {
+  cout << "1. Play Tic Tac Toe"
+       << "\n2. View Game History"
+       << "\n3. Quit"
+       << endl;
+  //menu input, and invalid input message
+  cout << "option: ";
+  cin >> menuOption;
+  //menuOption.erase(std::remove(menuOption.begin(),menuOption.end(),' '),menuOption.end()); //erases leading or trailing spaces
+  if (menuOption != "3" && menuOption != "2" && menuOption != "1") {cout << "please pict a valid option (1,2,3)\n";}
+if (menuOption == "1") {
+  menuOption = "n";
   //ask user for and X or O and validates their input
   while (!valid_input) {
     cout << "Enter first player (X or O): ";
@@ -35,36 +51,52 @@ do {
       cout << "Invalid input. Please enter 'X' or 'O'." << endl;
     }
   }
+  valid_input = false; //used so the program will ask if player is X or O again
 
-  //starts the game by calling the start_game function in the TicTacToe class using the game object
-  game.start_game(first_player);
+  //starts the tictactoegame by calling the start_game function in the TicTacToe class using the tictactoegame object
+  tictactoegame.start_game(first_player);
 
-  //code to prompt user for board position and calls functions in TicTacToe class to run game
-  while (!game.game_over()) {
-    do {
-    cout << "Enter position (1-9) for player " << game.get_player() << ": ";
-    cin >> position;
-    if (position > 9 && position < 1) {cout << position << " is not a valid board position." << endl;}
-    } while(position > 9 || position < 1);
-    game.mark_board(position);
-    game.display_board();
-  }
-  //when the game is over will display who won or tie
+  //code to prompt user for board position and calls functions in TicTacToe class to run tictactoegame
+  do {
+  cin  >> tictactoegame;
+  cout << "\n";
+  cout << tictactoegame << "\n";
+  } while (tictactoegame.game_over() == false);
+
+  //when the tictactoegame is over will display who won or tie
   cout << "Game over!" << endl;
-  if (game.get_winner() == "C") {
+  if (tictactoegame.get_winner() == "C") {
+    //t++;
     cout << "Tie game." << endl;
   } else {
-    cout << "Player " << game.get_winner() << " wins!" << endl;
+    //if (tictactoegame.get_winner() == "X"){w++;}
+    //if (tictactoegame.get_winner() == "O"){o++;}
+    cout << "Player " << tictactoegame.get_winner() << " wins!" << endl;
+  }
+  manager.save_game(tictactoegame);
+  manager.get_winner_total(o, w, t);
+}
+
+if (menuOption == "2") {
+  menuOption = "n";
+  cout << manager;
+}
+
+//will ask the user to confirm exiting the program and will then exit
+  if (menuOption == "3") {
+    cout << "Are you sure you want to exit? (y/n): ";
+    cin >> exitOption;
+    //exitOption.erase(std::remove(exitOption.begin(),exitOption.end(),' '),exitOption.end()); //removes leading or trailing spaces
+    while (exitOption != "Y" && exitOption != "y" && exitOption != "N" && exitOption != "n") {
+        cout << "Please put in a valid input (y/n): ";
+        cin >> exitOption;}
+    //if (exitOption == 'Y' || exitOption == 'y') {menuOption = "3";}
+    if (exitOption == "N" || exitOption == "n") {menuOption = "n";}
+    //cout << "\n";
+    manager.get_winner_total(o, w, t);
   }
 
-  //user input and while loop (input validation) to ask user to restart program
-  cout << "would you like to play again? (y/n): ";
-  cin >> exitOption;
-  while (exitOption != "Y" && exitOption != "y" && exitOption != "N" && exitOption != "n") {
-      cout << "Please put in a valid input (y/n): ";
-      cin >> exitOption;}
-  valid_input = false; //so game will ask for first player again
-} while(exitOption == "Y" || exitOption == "y");
+} while(menuOption != "3" && menuOption != "2" && menuOption != "1");;
 
 return 0;
 }
