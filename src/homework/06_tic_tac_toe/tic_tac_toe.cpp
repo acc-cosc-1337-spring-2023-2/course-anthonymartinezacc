@@ -61,6 +61,7 @@ string TicTacToe::get_winner() const {
     return winner;
 }
 
+/*
 //displays the current tic tac toe board
 void TicTacToe::display_board() const {
     //the -1 is to have parity with the board position numbers (0 index vs 1 index stuff)
@@ -71,19 +72,18 @@ void TicTacToe::display_board() const {
          << " " << pegs[7-1] << " | " << pegs[8-1] << " | " << pegs[9-1] << " " << endl;
 
     //this code can also alternativly be writen as a loop
-    /*for (int i = 0; i < 9; i++) {
-        if (i % 3 == 0 && i != 0) {
-            cout << "\n---------\n";
-        }
-        cout << pegs[i];
-        if (i % 3 != 2) {
-            cout << " | ";
-        }
-    }
-    cout << endl;*/
+    //for (int i = 0; i < 9; i++) {
+    //    if (i % 3 == 0 && i != 0) {
+    //        cout << "\n---------\n";
+    //    }
+    //    cout << pegs[i];
+    //    if (i % 3 != 2) {
+    //        cout << " | ";
+    //    }
+    //}
+    //cout << endl;
 
-}
-
+} */
 
 //private of the TicTacToe class: ----------------------------------------------------------------
 
@@ -156,4 +156,62 @@ void TicTacToe::clear_board() {
   for (int i = 0; i < 9; i++) {
        pegs[i] = " ";
   }
+}
+
+std::ostream& operator<<(std::ostream& out, const TicTacToe& game) {
+  for (int i = 0; i < 3; i++) {
+      for(int j = 0; j <3; j++) {
+          cout << game.pegs.at(i * 3 + j);
+          if (j < 2) { cout << " | "; }
+      }
+      cout << endl;
+      if (i < 2) {cout << "---------" << endl;}
+  }
+  out << endl;
+  return out;
+}
+
+std::istream& operator>>(std::istream& in, TicTacToe& game) {
+  int position;
+  bool valid_position = false;
+  while (valid_position == false) {
+      cout << "What position would you like to fill?\n";
+      cin >> position;
+      if (position > 0 && position < 10) {
+          valid_position = true;
+          break;
+      }
+      else {
+          cout << "\nInvalid Position. Please select a position of 1 through 9\n";
+      }
+  }
+  game.mark_board(position);
+  return in;
+}
+
+void TicTacToeManager::save_game(TicTacToe b) {
+  games.push_back(b);
+  update_winner_count(b.get_winner());
+}
+
+std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager) {
+  for (const auto& game : manager.games) {out << game << endl;}
+
+  out << "X wins: " << manager.x_win << "\n";
+  out << "O Wins: " << manager.o_win << "\n";
+  out << "Ties: " << manager.ties << "\n";
+  return out;
+}
+
+void TicTacToeManager::get_winner_total(int& o, int& w, int& t) {
+  o = o_win;
+  w = x_win;
+  t = ties;
+  cout << "X wins: " << w << "\nO wins: " << o << "\nTies: " << t << endl;
+}
+
+void TicTacToeManager::update_winner_count(string winner) {
+       if (winner == "X"){x_win++;}
+  else if (winner == "O"){o_win++;}
+  else if (winner == "C"){ties++;}
 }
