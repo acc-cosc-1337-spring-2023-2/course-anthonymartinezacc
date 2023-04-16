@@ -1,32 +1,43 @@
+//function file for tic tac toe game 3x3 board
+//contributors: anthony
+//progress: active devlopment
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include "tic_tac_toe.h"
 #include "tic_tac_toe_3.h"
 
-/*
-class function check_column_win
-Win by column if and return true if
-0,3, and 6 are equal
-1, 4, and 7
-2, 5, and 8
-else
-false
-*/
+//checks if any player has won in any of the collums
+bool TicTacToe3::check_column_win() {
+  for (int i = 0; i < 3; i++) {
+    if (pegs[i] == pegs[i+3] && pegs[i] == pegs[i+6] && pegs[i] != " ") {
+      set_winner();
+      return true;
+    }
+  }
+  return false;
+}
 
+//checks if any player has won in any of the rows
+bool TicTacToe3::check_row_win() {
+  for (int i = 0; i < 9; i+=3) {
+    if (pegs[i] == pegs[i+1] && pegs[i] == pegs[i+2] && pegs[i] != " ") {
+      set_winner();
+      return true;
+    }
+  }
+  return false;
+}
 
-
-/*
-class function check_row_win
-Win by row if
-0, 1, 2 are equal
-3,4,5 are equal
-6,7,8 are equal
-*/
-
-
-
-/*
-class function check_diagonal_win
-Win diagonally
-0 1 2
-3 4 5
-6 7 8
-
-*/
+//checks if any player has won in either of the diagonals
+bool TicTacToe3::check_diagonal_win() {
+  if (pegs[1-1] == pegs[5-1] && pegs[1-1] == pegs[9-1] && pegs[1-1] != " ") {
+    set_winner();
+    return true;
+  } else if (pegs[3-1] == pegs[5-1] && pegs[3-1] == pegs[7-1] && pegs[3-1] != " ") {
+    set_winner();
+    return true;
+  }
+  return false;
+}
