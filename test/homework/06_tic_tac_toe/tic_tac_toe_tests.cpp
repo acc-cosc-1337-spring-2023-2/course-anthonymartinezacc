@@ -1,13 +1,15 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 #include "tic_tac_toe.h"
-#include "tic_tac_toe.cpp"
+//#include "tic_tac_toe.cpp"
 #include "tic_tac_toe_manager.h"
-#include "tic_tac_toe_manager.cpp"
+//#include "tic_tac_toe_manager.cpp"
 #include "tic_tac_toe_3.h"
-#include "tic_tac_toe_3.cpp"
+//#include "tic_tac_toe_3.cpp"
 #include "tic_tac_toe_4.h"
-#include "tic_tac_toe_4.cpp"
+//#include "tic_tac_toe_4.cpp"
+#include "tic_tac_toe_data.h"
+//#include "tic_tac_toe_data.cpp"
 #include<memory>
 
 using std::make_unique; using std::unique_ptr;
@@ -247,7 +249,7 @@ TEST_CASE("Test TicTacToe manager for 3x3")
     REQUIRE(ties == 1);
 }
 
-TEST_CASE("Verify That board fills up for 3x3")
+TEST_CASE("Verify That board fills up for 4x4")
 {
     unique_ptr<TicTacToe> test = make_unique<TicTacToe4>();
 
