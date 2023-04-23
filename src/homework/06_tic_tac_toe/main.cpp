@@ -15,6 +15,8 @@
 #include "tic_tac_toe_3.h"
 #include "tic_tac_toe_4.cpp"
 #include "tic_tac_toe_4.h"
+#include "tic_tac_toe_data.h"
+#include "tic_tac_toe_data.cpp"
 
 using std::cout; using std::cin;
 using std::endl;
@@ -22,7 +24,8 @@ using std::string;
 
 int main() {
   std::unique_ptr<TicTacToe> tictactoegame; //object pointer from the TicTacToe Class
-  TicTacToeManager manager; //object from the TicTacToeManager Class
+  TicTacToeData data;
+  TicTacToeManager manager(data); //object from the TicTacToeManager Class
   string menuOption;        //user input for what to do on the menu
   string exitOption;        //var used to ask user if they would like to play again
   string first_player;      //var used to store if the first player would like to be a X or a O

@@ -8,11 +8,30 @@
 #include <memory>
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_manager.h"
+#include "tic_tac_toe_data.h"
 
 
 //TicTacToeManager Class functions: ---------------------------------------------------------------------
 
 //public of the TicTacToeManager class: -----------------------------------------------------------------
+
+// default constructor
+TicTacToeManager::TicTacToeManager() {}
+
+// constructor that takes a TicTacToeData reference parameter
+TicTacToeManager::TicTacToeManager(TicTacToeData& data) : data{data} {
+    // initialize games vector by reading data from file
+    games = data.get_games();
+    // loop through games and update winner counts
+    for (const auto& game : games) {
+        update_winner_count(game->get_winner()); }
+}
+
+// destructor
+TicTacToeManager::~TicTacToeManager() {
+    // save games to file before destroying object
+    data.save_games(games);
+}
 
 std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager) {
   for (const auto& game : manager.games) {out << *game << endl;}
