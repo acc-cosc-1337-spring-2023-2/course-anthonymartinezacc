@@ -19,6 +19,8 @@ class TicTacToe
     public:
         friend std::ostream& operator<<(std::ostream& os, const TicTacToe& game);
         friend std::istream& operator>>(std::istream& is, TicTacToe& game);
+        TicTacToe(vector<string> p, string win);
+        vector<string> get_pegs() const;
         void start_game(string first_player);
         void mark_board(int position);
         string get_player() const;

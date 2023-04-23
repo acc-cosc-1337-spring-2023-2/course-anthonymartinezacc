@@ -8,6 +8,11 @@
 #include "tic_tac_toe.h"
 #include "tic_tac_toe_3.h"
 
+using std::string;
+using std::vector;
+
+TicTacToe3::TicTacToe3(vector<string> p, string winner) : TicTacToe(p, winner) {}
+
 //checks if any player has won in any of the collums
 bool TicTacToe3::check_column_win() {
   for (int i = 0; i < 3; i++) {

@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "tic_tac_toe.h"
+#include "tic_tac_toe_data.h"
 
 using std::string;
 using std::vector;
@@ -17,6 +19,9 @@ using std::vector;
 class TicTacToeManager
 {
     public:
+        TicTacToeManager();
+        explicit TicTacToeManager(TicTacToeData& data);
+        ~TicTacToeManager();
         friend std::ostream& operator<<(std::ostream& out, const TicTacToeManager& manager);
         void save_game(std::unique_ptr<TicTacToe>& b);
         void get_winner_total(int& o, int& w, int& t);
@@ -26,6 +31,7 @@ class TicTacToeManager
         int o_win = 0;
         int ties = 0;
         vector<std::unique_ptr<TicTacToe>> games;
+        TicTacToeData data;
 
         void update_winner_count(string winner);
 };

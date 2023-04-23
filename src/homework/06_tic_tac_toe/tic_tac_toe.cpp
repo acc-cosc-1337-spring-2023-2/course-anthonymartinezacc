@@ -30,6 +30,8 @@ TicTacToe::TicTacToe() {
     pegs = {9, " "};
 }*/
 
+TicTacToe::TicTacToe(vector<string> p, string win) : pegs{p}, winner{win} {}
+
 std::ostream& operator<<(std::ostream& out, const TicTacToe& game) {
   int size = std::sqrt(game.pegs.size());
   for (int i = 0; i < size; i++) {
@@ -65,6 +67,11 @@ std::istream& operator>>(std::istream& in, TicTacToe& game) {
   }
   game.mark_board(position);
   return in;
+}
+
+vector<string> TicTacToe::get_pegs() const
+{
+    return pegs;
 }
 
 //checks if the game is over, (by both win and tie)
